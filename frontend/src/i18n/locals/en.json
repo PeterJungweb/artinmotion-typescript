@@ -1,0 +1,193 @@
+{
+  "header": {
+    "logo": "Her Gallery",
+    "nav": {
+      "home": "Home",
+      "gallery": "Gallery",
+      "about": "About",
+      "contact": "Contact",
+      "cart": "Cart"
+    },
+    "title": "Art in Motion",
+    "login": "Login",
+    "register": "Sign Up",
+    "logout": "Logout",
+    "welcome": "Welcome"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "loggingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up here"
+    },
+    "register": {
+      "title": "Create Account",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a secure password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create Account",
+      "registering": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in here",
+      "requirements": {
+        "length": "At least 8 characters",
+        "uppercase": "One uppercase letter",
+        "lowercase": "One lowercase letter",
+        "number": "One number",
+        "special": "One special character"
+      },
+      "errors": {
+        "nameRequired": "Full name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "passwordRequired": "Password is required",
+        "passwordLength": "Password must be at least 8 characters",
+        "passwordUppercase": "Password must contain an uppercase letter",
+        "passwordLowercase": "Password must contain a lowercase letter",
+        "passwordNumber": "Password must contain a number",
+        "passwordSpecial": "Password must contain a special character",
+        "passwordMismatch": "Passwords do not match"
+      }
+    }
+  },
+  "topSection": {
+    "title": "Welcome to Her Gallery",
+    "secondTitle": "Discover her latest paintings and inspirations.",
+    "cta": "View Gallery"
+  },
+  "middleSection": {
+    "items": [
+      {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet varius vehicula, neque sapien volutpat justo, in facilisis leo lacus eu leo."
+      },
+      {
+        "text": "Fusce vel sem at ligula commodo suscipit. Morbi lacinia mi turpis, nec sollicitudin nulla mollis eu."
+      },
+      {
+        "text": "Praesent sit amet odio sit amet eros fermentum tincidunt. Duis auctor urna in nulla condimentum."
+      }
+    ]
+  },
+  "aboutSection": {
+    "title": "About the Artist",
+    "paragraphs": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nulla facilisi. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.",
+      "Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+    ],
+    "imageAlt": "Artist Portrait"
+  },
+  "testimonialsSection": {
+    "testimonials": [
+      {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "stars": "⭐⭐⭐⭐⭐"
+      },
+      {
+        "text": "Praesent sit amet odio sit amet eros fermentum tincidunt.",
+        "stars": "⭐⭐⭐⭐"
+      },
+      {
+        "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "stars": "⭐⭐⭐⭐⭐"
+      }
+    ]
+  },
+  "footer": {
+    "description": "Discover unique artworks from talented artists. Each piece tells a story and brings beauty to your space.",
+    "navigation": {
+      "title": "Navigation",
+      "home": "Home",
+      "gallery": "Gallery",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "account": {
+      "title": "Account",
+      "cart": "Shopping Cart",
+      "orders": "My Orders",
+      "profile": "Profile"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "info@artinmotion.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "123 Art Street, Creative City"
+    },
+    "legal": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "imprint": "Imprint"
+    },
+    "copyright": "© 2024 Art in Motion. All rights reserved."
+  },
+  "marketplace": {
+    "header": {
+      "title": "Art in Motion Gallery",
+      "subtitle": "Discover unique artworks from talented artists"
+    },
+    "filters": {
+      "title": "Filter Artwork",
+      "all": "All Artwork",
+      "available": "Available",
+      "sold": "Sold"
+    },
+    "painting": {
+      "price": "Price",
+      "addToCart": "Add to Cart",
+      "viewDetails": "View Details",
+      "hideDetails": "Hide Details",
+      "sold": "SOLD",
+      "size": "Dimensions",
+      "medium": "Medium",
+      "year": "Year",
+      "category": "Category",
+      "interested": "🔥 {{count}} people interested",
+      "interestedSingle": "🔥 1 person interested",
+      "defaultDescription": "Beautiful artwork by the artist.",
+      "unknownMedium": "Mixed media"
+    },
+    "liveUpdates": {
+      "active": "Live updates active",
+      "connecting": "Connecting to live updates...",
+      "offline": "Live updates offline",
+      "error": "Connection error",
+      "tooltip": {
+        "title": "Real-Time Interest Tracking",
+        "description": "Watch live as other visitors add paintings to their cart!",
+        "feature1": "🔥 See instant interest counts",
+        "feature2": "👥 Track buyer activity in real-time",
+        "feature3": "⚡ No page refresh needed"
+      }
+    },
+    "status": {
+      "loading": "Loading beautiful artwork...",
+      "error": "Sorry, we couldn't load the paintings right now.",
+      "noResults": "No paintings available at the moment.",
+      "checkBackSoon": "Please check back soon for new artwork!",
+      "showingCount": "Showing {{filtered}} of {{total}} paintings",
+      "tryAgain": "Try Again"
+    }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "emptyMessage": "Your cart is empty",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "total": "Total",
+    "checkout": "Checkout",
+    "continueShopping": "Continue Shopping",
+    "remove": "Remove",
+    "tax": "VAT (20%)"
+  }
+}

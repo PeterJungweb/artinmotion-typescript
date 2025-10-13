@@ -1,0 +1,354 @@
+.painting-card {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transform-style: preserve-3d;
+}
+
+.painting-card:hover {
+  transform: translateY(-12px) rotateX(5deg);
+  box-shadow: 0 20px 64px rgba(0, 0, 0, 0.25);
+}
+
+.painting-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.painting-card:hover::before {
+  opacity: 1;
+}
+
+/* Image Container - The Art Showcase */
+.painting-image {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.painting-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: brightness(1) saturate(1) contrast(1);
+}
+
+.painting-card:hover .painting-image img {
+  transform: scale(1.08);
+  filter: brightness(1.1) saturate(1.2) contrast(1.1);
+}
+
+/* Sold Overlay - Elegant */
+.sold-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.sold-overlay span {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 24px rgba(231, 76, 60, 0.4);
+  transform: rotate(-12deg);
+  animation: soldPulse 2s infinite;
+}
+
+@keyframes soldPulse {
+  0%,
+  100% {
+    transform: rotate(-12deg) scale(1);
+  }
+  50% {
+    transform: rotate(-12deg) scale(1.05);
+  }
+}
+
+/* Card Information */
+.painting-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+}
+
+.painting-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+  transition: color 0.3s ease;
+}
+
+.painting-card:hover .painting-info h3 {
+  color: #3498db;
+}
+
+.painting-info > p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+/* Cart Interest - Eye-catching */
+.cart-interest {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  display: inline-block;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  animation: interestGlow 3s ease-in-out infinite;
+}
+
+@keyframes interestGlow {
+  0%,
+  100% {
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+    transform: scale(1.02);
+  }
+}
+
+/* Buttons - Modern and Inviting */
+.painting-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.buy-button,
+.view-details {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-button {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.buy-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(52, 152, 219, 0.4);
+  background: linear-gradient(135deg, #2980b9, #1f4e79);
+}
+
+.buy-button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.view-details {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+  border: 2px solid rgba(52, 152, 219, 0.2);
+}
+
+.view-details:hover {
+  background: rgba(52, 152, 219, 0.15);
+  border-color: rgba(52, 152, 219, 0.4);
+  transform: translateY(-2px);
+}
+
+.view-details.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+/* Details Section - Seamless Integration */
+.painting-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  margin: 16px -20px -20px -20px;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.painting-details.show {
+  max-height: 300px;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 20px;
+  border-top: 2px solid rgba(52, 152, 219, 0.1);
+}
+
+.painting-details p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #5a6c7d;
+  margin: 0 0 16px 0;
+  font-style: italic;
+}
+
+.painting-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.painting-details li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+  font-size: 13px;
+}
+
+.painting-details li:last-child {
+  border-bottom: none;
+}
+
+.painting-details li strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* Sold Card State */
+.painting-card.sold {
+  opacity: 0.7;
+  filter: grayscale(0.3);
+}
+
+.painting-card.sold:hover {
+  transform: translateY(-4px);
+  opacity: 0.8;
+}
+
+/* Loading Skeleton */
+.painting-card.loading .painting-image {
+  background: linear-gradient(90deg, #f0f0f0 25%, transparent 37%, #f0f0f0 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .painting-card {
+    border-radius: 12px;
+  }
+
+  .painting-info {
+    padding: 16px;
+  }
+
+  .painting-info h3 {
+    font-size: 1.2rem;
+  }
+
+  .painting-buttons {
+    flex-direction: column;
+  }
+
+  .buy-button,
+  .view-details {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .painting-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .painting-info {
+    padding: 12px;
+  }
+
+  .painting-info h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Special Art Adaptations */
+.painting-card[data-category="abstract"] .painting-image {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.painting-card[data-category="landscape"] .painting-image {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.painting-card[data-category="portrait"] .painting-image {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.painting-card[data-category="modern"] .painting-image {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+}

@@ -1,0 +1,194 @@
+{
+  "header": {
+    "logo": "Ihre Galerie",
+    "nav": {
+      "home": "Startseite",
+      "gallery": "Galerie",
+      "about": "Über",
+      "contact": "Kontakt",
+      "cart": "Warenkorb"
+    },
+    "title": "Art in Motion",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "welcome": "Willkommen"
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "E-Mail eingeben",
+      "password": "Passwort",
+      "passwordPlaceholder": "Passwort eingeben",
+      "submit": "Anmelden",
+      "loggingIn": "Anmeldung läuft...",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Hier registrieren"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "fullName": "Vollständiger Name",
+      "fullNamePlaceholder": "Vollständigen Namen eingeben",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "E-Mail eingeben",
+      "password": "Passwort",
+      "passwordPlaceholder": "Sicheres Passwort erstellen",
+      "confirmPassword": "Passwort bestätigen",
+      "confirmPasswordPlaceholder": "Passwort bestätigen",
+      "submit": "Konto erstellen",
+      "registering": "Konto wird erstellt...",
+      "hasAccount": "Bereits ein Konto?",
+      "signIn": "Hier anmelden",
+      "requirements": {
+        "length": "Mindestens 8 Zeichen",
+        "uppercase": "Ein Großbuchstabe",
+        "lowercase": "Ein Kleinbuchstabe",
+        "number": "Eine Zahl",
+        "special": "Ein Sonderzeichen"
+      },
+      "errors": {
+        "nameRequired": "Vollständiger Name ist erforderlich",
+        "emailRequired": "E-Mail ist erforderlich",
+        "emailInvalid": "Bitte gültige E-Mail eingeben",
+        "passwordRequired": "Passwort ist erforderlich",
+        "passwordLength": "Passwort muss mindestens 8 Zeichen haben",
+        "passwordUppercase": "Passwort muss einen Großbuchstaben enthalten",
+        "passwordLowercase": "Passwort muss einen Kleinbuchstaben enthalten",
+        "passwordNumber": "Passwort muss eine Zahl enthalten",
+        "passwordSpecial": "Passwort muss ein Sonderzeichen enthalten",
+        "passwordTooShort": "Passwort muss mindestens 8 Zeichen haben",
+        "passwordMismatch": "Passwörter stimmen nicht überein"
+      }
+    }
+  },
+  "topSection": {
+    "title": "placeholder",
+    "secondTitle": "placeholder",
+    "cta": "Besuchen Sie die Galerie"
+  },
+  "middleSection": {
+    "items": [
+      {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet varius vehicula, neque sapien volutpat justo, in facilisis leo lacus eu leo."
+      },
+      {
+        "text": "Fusce vel sem at ligula commodo suscipit. Morbi lacinia mi turpis, nec sollicitudin nulla mollis eu."
+      },
+      {
+        "text": "Praesent sit amet odio sit amet eros fermentum tincidunt. Duis auctor urna in nulla condimentum."
+      }
+    ]
+  },
+  "aboutSection": {
+    "title": "Über die Künstlerin",
+    "paragraphs": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Nulla facilisi. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.",
+      "Maecenas sed diam eget risus varius blandit sit amet non magna. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+    ],
+    "imageAlt": "Portrait der Künstlerin"
+  },
+  "testimonialsSection": {
+    "testimonials": [
+      {
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "stars": "⭐⭐⭐⭐⭐"
+      },
+      {
+        "text": "Praesent sit amet odio sit amet eros fermentum tincidunt.",
+        "stars": "⭐⭐⭐⭐"
+      },
+      {
+        "text": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "stars": "⭐⭐⭐⭐⭐"
+      }
+    ]
+  },
+  "footer": {
+    "description": "Entdecken Sie einzigartige Kunstwerke von talentierten Künstlern. Jedes Stück erzählt eine Geschichte und bringt Schönheit in Ihren Raum.",
+    "navigation": {
+      "title": "Navigation",
+      "home": "Startseite",
+      "gallery": "Galerie",
+      "about": "Über uns",
+      "contact": "Kontakt"
+    },
+    "account": {
+      "title": "Konto",
+      "cart": "Warenkorb",
+      "orders": "Meine Bestellungen",
+      "profile": "Profil"
+    },
+    "contact": {
+      "title": "Kontakt",
+      "email": "info@artinmotion.com",
+      "phone": "+49 (0) 123 456789",
+      "address": "Kunststraße 123, Kreativstadt"
+    },
+    "legal": {
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "imprint": "Impressum"
+    },
+    "copyright": "© 2024 Art in Motion. Alle Rechte vorbehalten."
+  },
+  "marketplace": {
+    "header": {
+      "title": "Art in Motion Galerie",
+      "subtitle": "Entdecken Sie einzigartige Kunstwerke von talentierten Künstlern"
+    },
+    "filters": {
+      "title": "Kunstwerke filtern",
+      "all": "Alle Kunstwerke",
+      "available": "Verfügbar",
+      "sold": "Verkauft"
+    },
+    "painting": {
+      "price": "Preis",
+      "addToCart": "In den Warenkorb",
+      "viewDetails": "Details anzeigen",
+      "hideDetails": "Details ausblenden",
+      "sold": "VERKAUFT",
+      "size": "Abmessungen",
+      "medium": "Material",
+      "year": "Jahr",
+      "category": "Kategorie",
+      "interested": "🔥 {{count}} Personen interessiert",
+      "interestedSingle": "🔥 1 Person interessiert",
+      "defaultDescription": "Schönes Kunstwerk des Künstlers.",
+      "unknownMedium": "Mischtechnik"
+    },
+    "liveUpdates": {
+      "active": "Live-Updates aktiv",
+      "connecting": "Verbinde mit Live-Updates...",
+      "offline": "Live-Updates offline",
+      "error": "Verbindungsfehler",
+      "tooltip": {
+        "title": "Echtzeit-Interessenverfolgung",
+        "description": "Sehen Sie live, wie andere Besucher Gemälde in den Warenkorb legen!",
+        "feature1": "🔥 Sofortige Interessenzählung",
+        "feature2": "👥 Käuferaktivität in Echtzeit verfolgen",
+        "feature3": "⚡ Keine Seitenaktualisierung nötig"
+      }
+    },
+    "status": {
+      "loading": "Lade wunderschöne Kunstwerke...",
+      "error": "Entschuldigung, wir konnten die Gemälde gerade nicht laden.",
+      "noResults": "Momentan sind keine Gemälde verfügbar.",
+      "checkBackSoon": "Bitte schauen Sie bald wieder für neue Kunstwerke vorbei!",
+      "showingCount": "Zeige {{filtered}} von {{total}} Gemälden",
+      "tryAgain": "Erneut versuchen"
+    }
+  },
+  "cart": {
+    "title": "Ihr Warenkorb",
+    "emptyMessage": "Ihr Warenkorb ist leer",
+    "subtotal": "Zwischensumme",
+    "shipping": "Versand",
+    "total": "Gesamtsumme",
+    "checkout": "Zur Kasse",
+    "continueShopping": "Weiter Einkaufen",
+    "remove": "Entfernen",
+    "tax": "Mehrwertsteuer (20%)"
+  }
+}

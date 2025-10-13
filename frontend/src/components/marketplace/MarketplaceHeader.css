@@ -1,0 +1,40 @@
+.marketplace-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+
+.marketplace-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #1f2937;
+  letter-spacing: -0.025em;
+}
+
+.marketplace-header p {
+  font-size: 1rem;
+  margin: 0;
+  color: #6b7280;
+  font-weight: 400;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .marketplace-header {
+    padding: 1.5rem 1rem;
+  }
+
+  .marketplace-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .marketplace-header p {
+    font-size: 0.9rem;
+  }
+}

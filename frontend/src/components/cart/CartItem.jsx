@@ -1,0 +1,23 @@
+import React from "react";
+//import { useTranslation } from "react-i18next";
+import { useCart } from "../../hooks/useCart";
+import "./CartItem.css";
+
+export default function CartItem({ item }) {
+  // const { t } = useTranslation();
+  const { removeFromCart } = useCart();
+
+  return (
+    <div className="cart-item">
+      <img src={item.image} alt={item.title} className="item-image" />
+      <div className="item-details">
+        <h3>{item.title}</h3>
+        <p className="item-price">€{item.price.toFixed(2)}</p>
+      </div>
+      <p className="item-total">€{item.price.toFixed(2)}</p>
+      <button className="remove-button" onClick={() => removeFromCart(item.id)}>
+        <span className="material-icons">delete</span>
+      </button>
+    </div>
+  );
+}

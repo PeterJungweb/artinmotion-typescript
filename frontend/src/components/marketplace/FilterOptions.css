@@ -1,0 +1,62 @@
+.marketplace-filters {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.marketplace-filters h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filter-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-options button {
+  padding: 0.375rem 0.75rem;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.filter-options button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.filter-options button.active {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.filter-options button.active:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  .marketplace-filters {
+    padding: 0.75rem;
+  }
+
+  .filter-options button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
