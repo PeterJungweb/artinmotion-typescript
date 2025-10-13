@@ -22,6 +22,8 @@ Teaching Philosophy and Interaction Rules
 - Safety net: Encourage small steps, type-safe refactors, incremental compilation, and focused commit checkpoints.
 - Feedback loop: The assistant will routinely ask you to run the code, share errors, and reflect on what changed and why.
 - Context preservation: The assistant will ask for relevant snippets (not entire files) and will reason about local context you provide.
+- Notes and exercises: I keep a "TypeScript-Mitschrift" folder to record key learnings; please suggest concise exercises to complete there sparingly and only after harder sections.
+
 
 Prompt styles the assistant will use:
 - “What do you think the type of X should be based on how it’s used here?”
