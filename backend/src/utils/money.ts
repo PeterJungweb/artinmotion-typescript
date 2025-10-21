@@ -1,3 +1,8 @@
+import type {
+  CartItemCal,
+  CartTotals,
+} from "../controllers/calculateCartTotals.js";
+
 // Raw calculation helpers (returns pure numbers)
 export const calculateSubtotal = (items) => {
   return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -20,7 +25,7 @@ export const roundToTwoDecimals = (amount) => {
 };
 
 // Complete cart calculation (returns object with raw numbers)
-export const calculateCartTotals = (items) => {
+export const calculateCartTotals = (items: CartItem[]): CartTotals => {
   const subtotal = calculateSubtotal(items);
   const tax = calculateTax(subtotal);
   const shipping = calculateShipping(subtotal);
