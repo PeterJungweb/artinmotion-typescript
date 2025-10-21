@@ -1,6 +1,7 @@
 import { calculateCartTotals as calculateTotals } from "../utils/money.js";
+import type { Response, Request } from "express";
 
-export const calculateCartTotals = async (req, res) => {
+export const calculateCartTotals = async (req: Request, res: Response) => {
   try {
     console.log("=== CART CALCULATION REQUEST ===");
     console.log("Request body:", JSON.stringify(req.body, null, 2));

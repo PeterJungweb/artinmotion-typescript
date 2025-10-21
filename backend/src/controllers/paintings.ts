@@ -1,10 +1,33 @@
+import type {Request, Response } from "express";
 import { supabase } from "../utils/supabase.js";
 
-export const getAllPaintings = async (req, res) => {
+interface PaintingInterface {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  medium: string;
+  dimensions_width: number;
+  dimensions_height: number;
+  image_url: string;
+  is_available: boolean;
+  is_featured: boolean;
+  cart_count: number;
+  availability_status: string;
+  created_at: string;
+}
+
+interface SupabaseResponse{
+  data: PaintingInterface[] | null;
+  error: any
+}
+
+export const getAllPaintings = async (req: Request, res: Response) => {
   try {
     console.log("🎨 Fetching paintings from Supabase...");
 
-    const { data: paintings, error } = await supabase
+    const { data: paintings, error }: SupabaseResponse = await supabase
       .from("paintings")
       .select(
         `
@@ -39,16 +62,16 @@ export const getAllPaintings = async (req, res) => {
       paintings: paintings || [],
       total: paintings?.length || 0,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.log();
     res.status(500).json({
       error: "Failed to fetch Paintings",
-      data: error.message,
+      data: error instanceof Error ? error.message: String(error)
     });
   }
 };
 
-export const getPaintingById = async (req, res) => {
+export const getPaintingById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     console.log(`🔍 Fetching painting with ID: ${id}`);
@@ -71,11 +94,11 @@ export const getPaintingById = async (req, res) => {
 
     console.log(`✅ Found painting: ${painting.title}`);
     res.json(painting);
-  } catch (error) {
+  } catch (error: unknown) {
     console.log();
     res.status(500).json({
       error: "Failed to fetch painting",
-      details: error.message,
+      details: error instanceof Error ? error.message : String(error)
     });
   }
 };

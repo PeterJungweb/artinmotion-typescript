@@ -6,18 +6,21 @@ import { WebSocket, WebSocketServer } from "ws";
 import type { IncomingMessage } from "http";
 import http from "http";
 import type { Request, Response } from "express";
-import authRoutes from "./src/routes/auth.js";
 
 // Import routes
 import paintingsRoutes from "./src/routes/paintings.js";
 import cartRoutes from "./src/routes/cart.js";
+import authRoutes from "./src/routes/auth.js";
+
 // import { timeStamp } from "console"; // unused
 //import ordersRoutes from './src/routes/orders.js';
 
 dotenv.config();
 
 const app = express();
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT as string, 10) : 3000;
+const PORT: number = process.env.PORT
+  ? parseInt(process.env.PORT as string, 10)
+  : 3000;
 
 // Create HTTP server (for Websocket)
 const server = http.createServer(app);
@@ -57,21 +60,24 @@ wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
 
 // Broadcast function for cart updates
 interface CartCountUpdateMessage {
-  type: 'CART_COUNT_UPDATE';
+  type: "CART_COUNT_UPDATE";
   paintingId: string;
   cartCount: number;
   timeStamp: string;
 }
 
-export const broadcastCartUpdate = (paintingId: string, newCartCount: number) => {
- const payload: CartCountUpdateMessage = {
-  type: 'CART_COUNT_UPDATE',
-  paintingId,
-  cartCount: newCartCount,
-  timeStamp: new Date().toISOString(),
- }
+export const broadcastCartUpdate = (
+  paintingId: string,
+  newCartCount: number
+) => {
+  const payload: CartCountUpdateMessage = {
+    type: "CART_COUNT_UPDATE",
+    paintingId,
+    cartCount: newCartCount,
+    timeStamp: new Date().toISOString(),
+  };
 
- const message = JSON.stringify(payload);
+  const message = JSON.stringify(payload);
   console.log(
     `📡 Broadcasting cart update: Painting ${paintingId} -> ${newCartCount} interested`
   );
