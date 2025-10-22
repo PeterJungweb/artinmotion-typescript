@@ -10,7 +10,7 @@ import type { Request, Response } from "express";
 // Import routes
 import paintingsRoutes from "./routes/paintings.js";
 import cartRoutes from "./routes/cart.js";
-// import authRoutes from "./src/routes/auth.js";
+import authRoutes from "./routes/auth.js";
 
 // import { timeStamp } from "console"; // unused
 //import ordersRoutes from './src/routes/orders.js';
@@ -102,11 +102,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes - This connects your frontend API calls to backend logic!
-app.use("/api/paintings", paintingsRoutes); // Handles paintingsApi calls
-app.use("/api/cart", cartRoutes); // Handles cartApi calls
-//app.use("/api/orders", ordersRoutes); // Handles orderApi calls
-
-// app.use("/api/auth", authRoutes);
+app.use("/api/paintings", paintingsRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/auth", authRoutes);
+//app.use("/api/orders", ordersRoutes);
 
 // Health check with WS info
 app.get("/health", (req: Request, res: Response) => {

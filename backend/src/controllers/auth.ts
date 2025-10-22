@@ -6,8 +6,9 @@ import {
 } from "../utils/password.js";
 import { generateToken } from "../utils/jwt.js";
 import crypto from "crypto";
+import type { Request, Response } from "express";
 
-export const register = async (req, res) => {
+export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, fullName, phone } = req.body;
 
@@ -84,7 +85,7 @@ export const register = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
@@ -131,7 +132,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
+export const logout = async (req: Request, res: Response) => {
   // With JWT, logout is handled client-side by removing the token
   res.json({
     success: true,
@@ -139,7 +140,7 @@ export const logout = async (req, res) => {
   });
 };
 
-export const getProfile = async (req, res) => {
+export const getProfile = async (req: Request, res: Response) => {
   try {
     // User is already attached by auth middleware
     res.json({
