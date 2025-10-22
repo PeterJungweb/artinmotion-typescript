@@ -8,9 +8,9 @@ import http from "http";
 import type { Request, Response } from "express";
 
 // Import routes
-import paintingsRoutes from "./src/routes/paintings.js";
-import cartRoutes from "./src/routes/cart.js";
-import authRoutes from "./src/routes/auth.js";
+import paintingsRoutes from "./routes/paintings.js";
+import cartRoutes from "./routes/cart.js";
+// import authRoutes from "./src/routes/auth.js";
 
 // import { timeStamp } from "console"; // unused
 //import ordersRoutes from './src/routes/orders.js';
@@ -105,7 +105,8 @@ app.use(express.json());
 app.use("/api/paintings", paintingsRoutes); // Handles paintingsApi calls
 app.use("/api/cart", cartRoutes); // Handles cartApi calls
 //app.use("/api/orders", ordersRoutes); // Handles orderApi calls
-app.use("/api/auth", authRoutes);
+
+// app.use("/api/auth", authRoutes);
 
 // Health check with WS info
 app.get("/health", (req: Request, res: Response) => {

@@ -1,5 +1,5 @@
 import { supabase } from "../utils/supabase.js";
-import { broadcastCartUpdate } from "../../server.js";
+import { broadcastCartUpdate } from "../server.js";
 import type { Request, Response } from "express";
 import type {
   SupabaseResponse,
