@@ -1,18 +1,6 @@
 import { calculateCartTotals as calculateTotals } from "../utils/money.js";
 import type { Response, Request } from "express";
-
-export interface CartItemCal {
-  id: string;
-  price: number;
-  quantity: number;
-}
-
-export interface CartTotals {
-  subtotal: number;
-  tax: number;
-  shipping: number;
-  total: number;
-}
+import type { CartTotals, CartItemCal } from "../types/cartTypes.js";
 
 export const calculateCartTotals = async (
   req: Request,
