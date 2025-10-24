@@ -10,11 +10,6 @@ export interface CartItem {
   created_at: string;
 }
 
-export interface SupabaseResponse<T> {
-  data: T | null;
-  error: any;
-}
-
 export type RemoveCartParams = { painting_id: string };
 
 // Cart Calculations:

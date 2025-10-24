@@ -1,8 +1,8 @@
 import { supabase } from "../utils/supabase.js";
 import { broadcastCartUpdate } from "../server.js";
+import type { SupabaseResponse } from "../types/supabaseResponseType.js";
 import type { Request, Response } from "express";
 import type {
-  SupabaseResponse,
   CartItem,
   PaintingWithCartCount,
   RemoveCartParams,

@@ -7,8 +7,15 @@ import {
 import { generateToken } from "../utils/jwt.js";
 import crypto from "crypto";
 import type { Request, Response } from "express";
+import type { UserRow, RegisterBody } from "../types/authTypes.js";
+import type { SupabaseResponse } from "../types/supabaseResponseType.js";
 
-export const register = async (req: Request, res: Response) => {
+type ExtendedRequest = Request & { user?: UserRow };
+
+export const register = async (
+  req: Request<{}, {}, RegisterBody>,
+  res: Response
+): Promise<Response | void> => {
   try {
     const { email, password, fullName, phone } = req.body;
 
@@ -27,11 +34,16 @@ export const register = async (req: Request, res: Response) => {
     }
 
     // Check if user already exists
-    const { data: existingUser } = await supabase
+    const { data: existingUser, error: findErr } = (await supabase
       .from("users")
       .select("id")
       .eq("email", email.toLowerCase())
-      .single();
+      .single()) as SupabaseResponse<UserRow>;
+
+    if (findErr) {
+      console.error("DB lookup error: ", findErr);
+      return res.status(500).json({ error: "Database Error" });
+    }
 
     if (existingUser) {
       return res
@@ -46,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
     const emailVerificationToken = crypto.randomBytes(32).toString("hex");
 
     // Create user
-    const { data: newUser, error } = await supabase
+    const { data: newUser, error: insertErr } = (await supabase
       .from("users")
       .insert({
         email: email.toLowerCase(),
@@ -56,10 +68,10 @@ export const register = async (req: Request, res: Response) => {
         email_verification_token: emailVerificationToken,
       })
       .select("id, email, full_name, email_verified")
-      .single();
+      .single()) as SupabaseResponse<UserRow>;
 
-    if (error) {
-      console.error("Database error:", error);
+    if (insertErr || !newUser) {
+      console.error("Database error: ", insertErr);
       return res.status(500).json({ error: "Failed to create user" });
     }
 
@@ -79,26 +91,35 @@ export const register = async (req: Request, res: Response) => {
       },
       token,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Registration error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Internal server error",
+      details: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body as {
+      email?: string;
+      password?: string;
+    };
 
     if (!email || !password) {
       return res.status(400).json({ error: "Email and password are required" });
     }
 
     // Find user
-    const { data: user, error } = await supabase
+    const { data: user, error } = (await supabase
       .from("users")
       .select("id, email, password_hash, full_name, email_verified")
       .eq("email", email.toLowerCase())
-      .single();
+      .single()) as SupabaseResponse<UserRow>;
 
     if (error || !user) {
       return res.status(401).json({ error: "Invalid email or password" });
@@ -126,13 +147,19 @@ export const login = async (req: Request, res: Response) => {
       },
       token,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Login error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Internal server error",
+      details: error instanceof Error ? error.message : String(error),
+    });
   }
 };
 
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
   // With JWT, logout is handled client-side by removing the token
   res.json({
     success: true,
@@ -140,15 +167,21 @@ export const logout = async (req: Request, res: Response) => {
   });
 };
 
-export const getProfile = async (req: Request, res: Response) => {
+export const getProfile = async (
+  req: ExtendedRequest,
+  res: Response
+): Promise<Response | void> => {
   try {
     // User is already attached by auth middleware
     res.json({
       success: true,
       user: req.user,
     });
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Get profile error:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({
+      error: "Internal server error",
+      details: error instanceof Error ? error.message : String(error),
+    });
   }
 };

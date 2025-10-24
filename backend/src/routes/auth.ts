@@ -21,6 +21,6 @@ router.post("/login", authLimiter, login);
 router.post("/logout", logout);
 
 //Protected routes
-router.get("profile", authenticateToken, getProfile);
+router.get("/profile", authenticateToken, getProfile);
 
 export default router;
