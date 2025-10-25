@@ -5,7 +5,6 @@ import type { Response, Request, NextFunction } from "express";
 import type { SupabaseResponse } from "../types/supabaseResponseType.js";
 import type { UserRow } from "../types/authTypes.js";
 
-
 type ExtendedRequest = Request & { user?: UserRow };
 
 export const authenticateToken = async (
@@ -19,7 +18,11 @@ export const authenticateToken = async (
       return res.status(401).json({ error: "Missing or invalid Auth-Header" });
     }
 
-    const token = authHeader.split("")[1]; // Bearer TOKEN
+    const token = authHeader.split(" ")[1]; // Bearer TOKEN
+    if (!token) {
+      return res.status(401).json({ error: "Missing token" });
+    }
+
     const payload = verifyToken(token);
 
     const userId = (payload &&
@@ -59,58 +62,36 @@ export const optionalAuth = async (
 ) => {
   try {
     const authHeader = String(req.headers.authorization ?? "");
-    if(!authHeader || !authHeader.startsWith("Bearer ")){
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return next();
     }
 
-
     const token = authHeader.split(" ")[1];
+    if (!token) return next();
 
-    try{
+    try {
       const payload = verifyToken(token);
-      const userId = (payload && (
-        payload.sub ?? payload.userId ?? payload.id)) as string | undefined;
-      
-      if(!userId)return next();
+      const userId = (payload &&
+        (payload.sub ?? payload.userId ?? payload.id)) as string | undefined;
 
-      const {data: user, error} = (await supabase
+      if (!userId) return next();
+
+      const { data: user, error } = (await supabase
         .from("users")
         .select("id, email, full_name,email_verified")
         .eq("id", userId)
-        .single()) as SupabaseResponse<UserRow>
+        .single()) as SupabaseResponse<UserRow>;
+
+      if (!error && user) req.user = user;
+    } catch {
+      // invalid token -ignore and continue as unauthenticated!
     }
 
-    next();
-  } catch (error) {
-    // Continue without user if token is invalid
-    next();
+    return next();
+  } catch (error: unknown) {
+    console.error("Optional auth middleware error: ", error);
+    return next();
   }
 };
 
-export const authMiddleware = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return res
-      .status(401)
-      .json({ error: "Missing or invalid authorization header" });
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    // Verify the JWT token with Supabase Auth
-    const { data, error } = await supabase.auth.getUser(token);
-
-    if (error || !data.user) {
-      return res.status(401).json({ error: "Invalid or expired token" });
-    }
-
-    // Add user to request object
-    req.user = data.user;
-    next();
-  } catch (error) {
-    console.error("Auth middleware error:", error);
-    res.status(500).json({ error: "Authentication failed" });
-  }
-};
+export const authMiddleware = authenticateToken;

@@ -101,14 +101,11 @@ export const register = async (
 };
 
 export const login = async (
-  req: Request,
+  req: Request<{}, {}, { email?: string; password?: string }>,
   res: Response
 ): Promise<Response | void> => {
   try {
-    const { email, password } = req.body as {
-      email?: string;
-      password?: string;
-    };
+    const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ error: "Email and password are required" });
@@ -126,7 +123,10 @@ export const login = async (
     }
 
     // Verify password
-    const isValidPassword = await comparePassword(password, user.password_hash);
+    const isValidPassword = await comparePassword(
+      password,
+      user.password_hash ?? ""
+    );
     if (!isValidPassword) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
@@ -172,8 +172,11 @@ export const getProfile = async (
   res: Response
 ): Promise<Response | void> => {
   try {
-    // User is already attached by auth middleware
-    res.json({
+    if (!req.user) {
+      return res.status(401).json({ error: "Not Authanticated" });
+    }
+
+    return res.json({
       success: true,
       user: req.user,
     });

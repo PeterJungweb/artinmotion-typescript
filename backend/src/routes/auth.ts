@@ -1,5 +1,4 @@
 import express from "express";
-import { AuthInvalidCredentialsError } from "@supabase/supabase-js";
 import { register, login, logout, getProfile } from "../controllers/auth.js";
 import { authenticateToken } from "../middlewares/auth.js";
 import rateLimit from "express-rate-limit";
@@ -10,7 +9,7 @@ const router = express.Router();
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 Min
   max: 5,
-  message: { error: "???" }, // De und En
+  message: { error: "To many Requests, please try again later" },
   standardHeaders: true,
   legacyHeaders: false,
 });
