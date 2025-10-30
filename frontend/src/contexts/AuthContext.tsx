@@ -1,11 +1,12 @@
-/* eslint-disable react-refresh/only-export-components */
-
 import React, { createContext, useContext, useMemo } from "react";
+import type { JSX, ReactNode } from "react";
 import { useAuth as useAuthHook } from "../hooks/useAuth.js";
 
-const AuthContext = createContext(null); // ✅ Default value
+type AuthContextType = ReturnType<typeof useAuthHook> | null;
 
-export const AuthProvider = ({ children }) => {
+const AuthContext = createContext<AuthContextType>(null); // Default value
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const auth = useAuthHook();
 
   const contextValue = useMemo(() => auth, [auth]);
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 // Custom hook to use the auth context
-export const useAuthContext = () => {
+export const useAuthContext = (): NonNullable<AuthContextType> => {
   const context = useContext(AuthContext);
   if (context === null) {
     throw new Error("useAuthContext must be used within an AuthProvider");
@@ -24,6 +25,6 @@ export const useAuthContext = () => {
   return context;
 };
 
-// ✅ Named export for better debugging
+//  Named export for better debugging
 export { AuthContext };
 export default AuthContext;
