@@ -1,4 +1,4 @@
-export const getSessionId = () => {
+export const getSessionId = (): string => {
   let sessionId = localStorage.getItem("cartSessionId");
 
   if (!sessionId) {
@@ -14,7 +14,7 @@ export const getSessionId = () => {
   return sessionId;
 };
 
-export const getUserId = () => {
+export const getUserId = (): string | null => {
   // For now return null (anonymous user)
   return null;
 };
