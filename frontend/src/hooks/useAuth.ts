@@ -1,8 +1,15 @@
 import { useState, useEffect, useCallback } from "react";
 import { authApi } from "../services/authApi.js";
+import type {
+  UseAuthReturn,
+  AuthResponse,
+  AuthState,
+  RegisterData,
+} from "../types/authTypes.js";
+import { isAxiosError } from "axios";
 
-export const useAuth = () => {
-  const [state, setState] = useState({
+export const useAuth = (): UseAuthReturn => {
+  const [state, setState] = useState<AuthState>({
     user: null,
     token: null,
     isAuthenticated: false,
@@ -63,7 +70,7 @@ export const useAuth = () => {
   }, [verifyToken]);
 
   // Login function
-  const login = useCallback(async (email, password) => {
+  const login = useCallback(async (email: string, password: string) => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -88,10 +95,16 @@ export const useAuth = () => {
         }));
         return { success: false, error: result.error };
       }
-    } catch (error) {
-      console.error("Login error:", error.message || error);
-      const errorMessage =
-        error.response?.data?.error || "Login failed. Please try again.";
+    } catch (error: unknown) {
+      console.error("Login error: ", error);
+      let errorMessage = "Login failed. Please try again.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      if (isAxiosError(error) && error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      }
       setState((prev) => ({
         ...prev,
         loading: false,
@@ -102,7 +115,7 @@ export const useAuth = () => {
   }, []);
 
   // Register function
-  const register = useCallback(async (userData) => {
+  const register = useCallback(async (userData: RegisterData) => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -131,10 +144,16 @@ export const useAuth = () => {
           details: result.details,
         };
       }
-    } catch (error) {
-      console.error("Registration error:", error.message || error);
-      const errorMessage =
-        error.response?.data?.error || "Registration failed. Please try again.";
+    } catch (error: unknown) {
+      console.error("Registration error: ", error);
+      let errorMessage = "Registration failed. Please try again.";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      if (isAxiosError(error) && error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      }
+
       setState((prev) => ({
         ...prev,
         loading: false,
