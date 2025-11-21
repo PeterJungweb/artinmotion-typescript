@@ -15,7 +15,6 @@ export const authApi = {
     } catch (error: unknown) {
       let errorMessage = "Registration failed";
       let errorDetails: string[] = [];
-
       if (error instanceof Error) {
         errorMessage = error.message;
       }
