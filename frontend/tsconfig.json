@@ -12,8 +12,11 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "noEmit": true,
-    "resolveJsonModule": true,
-    "baseUrl": "src"
+    "resolveJsonModule": true
+    // "baseUrl": "src",
+    // "paths": {
+    //   "types/*": ["types/*"]
+    // }
   },
   "include": ["src"]
 }

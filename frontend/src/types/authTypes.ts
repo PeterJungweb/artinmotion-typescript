@@ -15,7 +15,7 @@ export interface AuthState {
 
 export type AuthResponse =
   | { success: true }
-  | { success: false; error: string; details: string[] };
+  | { success: false; error: string; details?: string[] };
 
 export interface UseAuthReturn extends AuthState {
   login: (email: string, password: string) => Promise<AuthResponse>;
@@ -31,3 +31,7 @@ export interface RegisterData {
   fullName?: string;
   phone?: string;
 }
+
+export type AuthApiResponse =
+  | { success: true; user: User; token: string }
+  | { success: false; error: string; details?: string[] };

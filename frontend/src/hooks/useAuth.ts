@@ -46,8 +46,16 @@ export const useAuth = (): UseAuthReturn => {
           error: null,
         }));
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Token verification failed:", error);
+      let errorMessage = "Token verification failed";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      if (isAxiosError(error) && error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      }
+
       authApi.removeToken();
       setState((prev) => ({
         ...prev,
@@ -55,7 +63,7 @@ export const useAuth = (): UseAuthReturn => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        error: null,
+        error: errorMessage,
       }));
     }
   }, []);
@@ -70,98 +78,107 @@ export const useAuth = (): UseAuthReturn => {
   }, [verifyToken]);
 
   // Login function
-  const login = useCallback(async (email: string, password: string) => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+  const login = useCallback(
+    async (email: string, password: string): Promise<AuthResponse> => {
+      setState((prev) => ({ ...prev, loading: true, error: null }));
 
-    try {
-      const result = await authApi.login(email, password);
+      try {
+        const result = await authApi.login(email, password);
 
-      if (result.success) {
+        if (result.success) {
+          setState((prev) => ({
+            ...prev,
+            user: result.user,
+            token: result.token,
+            isAuthenticated: true,
+            loading: false,
+            error: null,
+          }));
+          console.log("✅ Login successful:", result.user.email);
+          return { success: true };
+        } else {
+          setState((prev) => ({
+            ...prev,
+            loading: false,
+            error: result.error,
+          }));
+          return {
+            success: false,
+            error: result.error || "Login failed",
+          };
+        }
+      } catch (error: unknown) {
+        console.error("Login error: ", error);
+        let errorMessage = "Login failed. Please try again.";
+
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        if (isAxiosError(error) && error.response?.data?.error) {
+          errorMessage = error.response.data.error;
+        }
         setState((prev) => ({
           ...prev,
-          user: result.user,
-          token: result.token,
-          isAuthenticated: true,
           loading: false,
-          error: null,
+          error: errorMessage,
         }));
-        console.log("✅ Login successful:", result.user.email);
-        return { success: true };
-      } else {
-        setState((prev) => ({
-          ...prev,
-          loading: false,
-          error: result.error,
-        }));
-        return { success: false, error: result.error };
+        return { success: false, error: errorMessage };
       }
-    } catch (error: unknown) {
-      console.error("Login error: ", error);
-      let errorMessage = "Login failed. Please try again.";
-
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      if (isAxiosError(error) && error.response?.data?.error) {
-        errorMessage = error.response.data.error;
-      }
-      setState((prev) => ({
-        ...prev,
-        loading: false,
-        error: errorMessage,
-      }));
-      return { success: false, error: errorMessage };
-    }
-  }, []);
+    },
+    []
+  );
 
   // Register function
-  const register = useCallback(async (userData: RegisterData) => {
-    setState((prev) => ({ ...prev, loading: true, error: null }));
+  const register = useCallback(
+    async (userData: RegisterData): Promise<AuthResponse> => {
+      setState((prev) => ({ ...prev, loading: true, error: null }));
 
-    try {
-      const result = await authApi.register(userData);
+      try {
+        const result = await authApi.register(userData);
 
-      if (result.success) {
+        if (result.success) {
+          setState((prev) => ({
+            ...prev,
+            user: result.user,
+            token: result.token,
+            isAuthenticated: true,
+            loading: false,
+            error: null,
+          }));
+          console.log("✅ Registration successful:", result.user.email);
+          return { success: true };
+        } else {
+          setState((prev) => ({
+            ...prev,
+            loading: false,
+            error: result.error,
+          }));
+          return {
+            success: false,
+            error: result.error || "Registration failed",
+            details: result.details,
+          };
+        }
+      } catch (error: unknown) {
+        console.error("Registration error: ", error);
+        let errorMessage = "Registration failed. Please try again.";
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
+        if (isAxiosError(error) && error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        }
+
         setState((prev) => ({
           ...prev,
-          user: result.user,
-          token: result.token,
-          isAuthenticated: true,
           loading: false,
-          error: null,
+          error: errorMessage,
         }));
-        console.log("✅ Registration successful:", result.user.email);
-        return { success: true };
-      } else {
-        setState((prev) => ({
-          ...prev,
-          loading: false,
-          error: result.error,
-        }));
-        return {
-          success: false,
-          error: result.error,
-          details: result.details,
-        };
+        return { success: false, error: errorMessage };
       }
-    } catch (error: unknown) {
-      console.error("Registration error: ", error);
-      let errorMessage = "Registration failed. Please try again.";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      if (isAxiosError(error) && error.response?.data?.message) {
-        errorMessage = error.response.data.message;
-      }
-
-      setState((prev) => ({
-        ...prev,
-        loading: false,
-        error: errorMessage,
-      }));
-      return { success: false, error: errorMessage };
-    }
-  }, []);
+    },
+    []
+  );
 
   // Logout function
   const logout = useCallback(async () => {
@@ -175,15 +192,23 @@ export const useAuth = (): UseAuthReturn => {
         error: null,
       });
       console.log("✅ Logout successful");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Logout error:", error);
+      let errorMessage = "Logout error";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      if (isAxiosError(error) && error.response?.data?.error) {
+        errorMessage = error.response.data.error;
+      }
+
       // Still logout locally even if API call fails
       setState({
         user: null,
         token: null,
         isAuthenticated: false,
         loading: false,
-        error: null,
+        error: errorMessage,
       });
     }
   }, []);
