@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { CartContext } from "./CartContext";
 import { cartApi } from "../services/api";
 import { getSessionId, getUserId } from "../utils/session";
+import type { ReactNode } from "react";
+import type { CartItem, CartTotals, Painting } from "../types/cartTypes";
+import { isAxiosError } from "axios";
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [cartTotals, setCartTotals] = useState({
+interface CartProviderProps {
+  children: ReactNode;
+}
+
+export const CartProvider = ({ children }: CartProviderProps) => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartTotals, setCartTotals] = useState<CartTotals>({
     subtotal: 0,
     tax: 0,
     shipping: 0,
@@ -21,8 +28,11 @@ export const CartProvider = ({ children }) => {
           setLoading(true);
           const totals = await cartApi.calculateTotals(cartItems);
           setCartTotals(totals);
-        } catch (error) {
-          console.log("Faild to calculate total:", error);
+        } catch (error: unknown) {
+          console.error("Faild to calculate total: ", error);
+          if (isAxiosError(error)) {
+            console.error("❌ Server Response: ", error.response?.data);
+          }
         } finally {
           setLoading(false);
         }
@@ -37,7 +47,7 @@ export const CartProvider = ({ children }) => {
 
   // cart operations (ui state managment)
 
-  const addToCart = async (item) => {
+  const addToCart = async (item: Painting) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
@@ -49,7 +59,7 @@ export const CartProvider = ({ children }) => {
         )
       );
     } else {
-      const newItem = {
+      const newItem: CartItem = {
         ...item,
         quantity: 1,
         image: item.image || "/images/placeholder-image.jpg",
@@ -64,14 +74,17 @@ export const CartProvider = ({ children }) => {
 
       const result = await cartApi.addToCart(item.id, userId, sessionId);
       console.log("✅ API response:", result);
-    } catch (error) {
-      console.error("❌ Failed to add to database cart:", error);
-      console.error("❌ Error details:", error.response?.data);
+    } catch (error: unknown) {
+      console.error("❌ Failed to add Cart to the database: ", error);
+
+      if (isAxiosError(error)) {
+        console.error("❌ Server Response: ", error.response?.data);
+      }
     }
   };
 
   // Remove cartItems!!
-  const removeFromCart = async (itemId) => {
+  const removeFromCart = async (itemId: string) => {
     setCartItems(cartItems.filter((item) => item.id !== itemId));
 
     // Decrease "cart_count" in database
@@ -81,13 +94,17 @@ export const CartProvider = ({ children }) => {
 
       await cartApi.removeFromCart(itemId, userId, sessionId);
       console.log("✅ Removed from database cart");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("❌ Failed to remove from database cart:", error);
+
+      if (isAxiosError(error)) {
+        console.error("❌ Server Response: ", error.response?.data);
+      }
     }
   };
 
   // Uptade cart quantity
-  const updateQuantity = (itemId, quantity) => {
+  const updateQuantity = (itemId: string, quantity: number) => {
     if (quantity < 1) {
       removeFromCart(itemId);
       return;

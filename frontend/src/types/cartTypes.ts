@@ -1,10 +1,13 @@
-export interface CartItem {
+export interface Painting {
   id: string;
   title: string;
   price: number;
-  quantity: number;
   image: string;
   is_available?: boolean;
+}
+
+export interface CartItem extends Painting {
+  quantity: number;
 }
 
 export interface CartTotals {
