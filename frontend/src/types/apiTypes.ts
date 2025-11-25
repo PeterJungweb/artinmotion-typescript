@@ -40,3 +40,20 @@ export interface RemoveFromCartResponse {
 
 // ===================== Orders Api Response ================== //
 // needs to be created!!
+
+// ===================== WebSocket Messag Types ================== //
+
+interface CartCountUpdateMessage {
+  type: "CART_COUNT_UPDATE";
+  paintingId: string;
+  cartCount: number;
+}
+
+interface ConnectionEstablishedMessage {
+  type: "CONNECTION_ESTABLISHED";
+  message: string;
+}
+
+export type WebSocketMessage =
+  | CartCountUpdateMessage
+  | ConnectionEstablishedMessage;
