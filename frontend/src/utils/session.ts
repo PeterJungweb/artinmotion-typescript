@@ -14,7 +14,7 @@ export const getSessionId = (): string => {
   return sessionId;
 };
 
-export const getUserId = (): string | null => {
+export const getUserId = (): undefined | null => {
   // For now return null (anonymous user)
   return null;
 };

@@ -21,7 +21,7 @@ export interface CartContextValue {
   cartItems: CartItem[];
   cartTotals: CartTotals;
   loading: boolean;
-  addToCart: (item: CartItem) => Promise<void>;
+  addToCart: (item: Painting) => Promise<void>;
   removeFromCart: (itemId: string) => Promise<void>;
   updateQuantity: (itemId: string, quantity: number) => void;
   clearCart: () => void;

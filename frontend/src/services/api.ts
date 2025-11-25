@@ -1,4 +1,6 @@
 import axios from "axios";
+import type { InternalAxiosRequestConfig, AxiosResponse } from "axios";
+import type { GetAllPaintingsReponse } from "../types/apiTypes";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
