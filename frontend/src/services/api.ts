@@ -1,6 +1,12 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import type { InternalAxiosRequestConfig, AxiosResponse } from "axios";
-import type { GetAllPaintingsReponse } from "../types/apiTypes";
+import type {
+  GetAllPaintingsResponse,
+  PaintingFromBackend,
+  AddToCartResponse,
+  RemoveFromCartResponse,
+} from "../types/apiTypes";
+import { CartItem, CartTotals } from "../types/cartTypes";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
@@ -13,24 +19,29 @@ const api = axios.create({
 
 // Request interceptor - automatically add auth token
 api.interceptors.request.use(
-  (config) => {
+  (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem("authToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
+  (error: unknown) => {
     return Promise.reject(error);
   }
 );
 
 // Response interceptor - handle 401 errors
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  (response: AxiosResponse) => response,
+  (error: unknown) => {
+    let errorStatus;
+
+    if (isAxiosError(error)) {
+      errorStatus = error.response?.status;
+    }
     // Handle 401 errors (unauthorized) - auto logout
-    if (error.response?.status === 401) {
+    if (errorStatus === 401) {
       localStorage.removeItem("authToken");
       window.dispatchEvent(new Event("auth:logout"));
     }
@@ -40,17 +51,17 @@ api.interceptors.response.use(
 
 // Paintings API
 export const paintingsApi = {
-  async getAll() {
+  async getAll(): Promise<GetAllPaintingsResponse> {
     const response = await api.get("paintings");
     return response.data;
   },
 
-  async getById(id) {
+  async getById(id: string): Promise<PaintingFromBackend> {
     const response = await api.get(`paintings/${id}`);
     return response.data;
   },
 
-  async getByCategory(category) {
+  async getByCategory(category: string): Promise<GetAllPaintingsResponse> {
     const response = await api.get(`paintings?category=${category}`);
     return response.data;
   },
@@ -58,12 +69,16 @@ export const paintingsApi = {
 
 // Cart API
 export const cartApi = {
-  async calculateTotals(items) {
+  async calculateTotals(items: CartItem[]): Promise<CartTotals> {
     const response = await api.post("cart/calculate", { items });
     return response.data;
   },
 
-  async addToCart(paintingId, userId = null, sessionId = null) {
+  async addToCart(
+    paintingId: string,
+    userId: string | null = null,
+    sessionId: string | null = null
+  ): Promise<AddToCartResponse> {
     const session =
       sessionId ||
       localStorage.getItem("cartSessionId") ||
@@ -84,7 +99,11 @@ export const cartApi = {
     return response.data;
   },
 
-  async removeFromCart(paintingId, userId = null, sessionId = null) {
+  async removeFromCart(
+    paintingId: string,
+    userId: string | null = null,
+    sessionId: string | null = null
+  ): Promise<RemoveFromCartResponse> {
     // Use same session ID from localStorage
     const session = sessionId || localStorage.getItem("cartSessionId");
 
@@ -100,7 +119,7 @@ export const cartApi = {
 
 // Orders API
 export const ordersApi = {
-  async create(orderData) {
+  async create(orderData: any): Promise<any> {
     const response = await api.post("orders", orderData);
     return response.data;
   },
