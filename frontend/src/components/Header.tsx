@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
-import { useAuthContext } from "../contexts/AuthContext.jsx";
-import LoginModal from "./auth/LoginModal.jsx";
-import RegisterModal from "./auth/RegisterModal.jsx";
+import { useAuthContext } from "../contexts/AuthContext.js";
+import LoginModal from "./auth/LoginModal.js";
+import RegisterModal from "./auth/RegisterModal.js";
 import "./Header.css";
 
-export default function Header() {
+export function Header() {
   const { t, i18n } = useTranslation();
   const { cartItems } = useCart();
   const { user, isAuthenticated, logout } = useAuthContext();

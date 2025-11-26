@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAuthContext } from "../../contexts/AuthContext.jsx";
+import { useAuthContext } from "../../contexts/AuthContext.js";
 import Modal from "../ui/Modal.jsx";
 import "./AuthModal.css"; // Should this no be called "LoginModal.css"?
 
-const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
+interface LoginModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSwitchToRegister: () => void;
+}
+
+const LoginModal = ({
+  isOpen,
+  onClose,
+  onSwitchToRegister,
+}: LoginModalProps) => {
   const { t } = useTranslation();
   const { login, loading, error, clearError } = useAuthContext();
 
@@ -13,7 +23,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     password: "",
   });
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -22,7 +32,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     if (error) clearError();
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {

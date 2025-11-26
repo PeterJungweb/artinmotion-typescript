@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAuthContext } from "../../contexts/AuthContext.jsx";
+import { useAuthContext } from "../../contexts/AuthContext.js";
 import Modal from "../ui/Modal.jsx";
 import "./AuthModal.css";
 
-const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
+interface RegisterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSwitchToLogin: () => void;
+}
+
+const RegisterModal = ({
+  isOpen,
+  onClose,
+  onSwitchToLogin,
+}: RegisterModalProps) => {
   const { t } = useTranslation();
   const { register, loading, error, clearError } = useAuthContext();
 
@@ -15,12 +25,14 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     confirmPassword: "",
   });
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
   const [showPassword, setShowPassword] = useState(false); // ✅ Password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // ✅ Confirm password visibility
 
   // ✅ Password validation function
-  const validatePassword = (password) => {
+  const validatePassword = (password: string) => {
     const errors = [];
     const checks = {
       length: password.length >= 8,
@@ -42,7 +54,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   };
 
   const validateForm = () => {
-    const errors = {};
+    const errors: Record<string, string> = {};
 
     if (!formData.fullName.trim()) {
       errors.fullName = t("auth.register.errors.nameRequired");
@@ -67,7 +79,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -86,7 +98,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     if (error) clearError();
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) {
