@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
+import type { PaintingFromBackend, WebSocketMessage } from "../types/apiTypes";
 
-export const useRealtimeCartUpdates = (paintnings, setPaintings) => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [connectionError, setConnectionError] = useState(null);
+interface UseRealtimeCartUpdatesReturn {
+  isConnected: boolean;
+  connectionError: string | null;
+}
+
+export const useRealtimeCartUpdates = (
+  setPaintings: React.Dispatch<React.SetStateAction<PaintingFromBackend[]>>
+): UseRealtimeCartUpdatesReturn => {
+  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("🔌 Initializing WebSocket connection...");
@@ -16,9 +24,9 @@ export const useRealtimeCartUpdates = (paintnings, setPaintings) => {
       setConnectionError(null);
     };
 
-    ws.onmessage = () => {
+    ws.onmessage = (event: MessageEvent) => {
       try {
-        const data = JSON.parse(event.data);
+        const data = JSON.parse(event.data) as WebSocketMessage;
         console.log("📡 Real-time message received:", data);
 
         if (data.type === "CART_COUNT_UPDATE") {
@@ -39,8 +47,12 @@ export const useRealtimeCartUpdates = (paintnings, setPaintings) => {
         if (data.type === "CONNECTION_ESTABLISHED") {
           console.log("✅ WebSocket connection established:", data.message);
         }
-      } catch (error) {
-        console.error("❌ Failed to parse WebSocket message:", error);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("❌ Parse error: ", error.message);
+        } else {
+          console.error("❌ Failed to parse WebSocket message:", error);
+        }
       }
     };
 
@@ -49,7 +61,7 @@ export const useRealtimeCartUpdates = (paintnings, setPaintings) => {
       setIsConnected(false);
     };
 
-    ws.onerror = (error) => {
+    ws.onerror = (error: Event) => {
       console.error("🔌 WebSocket error:", error);
       setConnectionError("WebSocket connection failed");
       setIsConnected(false);
