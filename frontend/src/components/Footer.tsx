@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
-export default function Footer() {
+export function Footer(): React.JSX.Element {
   const { t } = useTranslation();
 
   return (
