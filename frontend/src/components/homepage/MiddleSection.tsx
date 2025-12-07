@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./MiddleSection.css";
 
-export default function MiddleSection() {
+export function MiddleSection(): React.JSX.Element {
   const { t } = useTranslation();
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([entry]) => {
+      ([entry]: IntersectionObserverEntry[]) => {
         // toggle on enter/exit so animation can replay
         setVisible(entry.isIntersecting);
       },
@@ -19,7 +19,9 @@ export default function MiddleSection() {
     return () => obs.disconnect();
   }, []);
 
-  const items = t("middleSection.items", { returnObjects: true });
+  const items: Array<{ text: string }> = t("middleSection.items", {
+    returnObjects: true,
+  });
 
   return (
     <section
