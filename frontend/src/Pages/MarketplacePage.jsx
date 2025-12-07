@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import MarketplaceHeader from "../components/marketplace/MarketplaceHeader";
 import FilterOptions from "../components/marketplace/FilterOptions";
 import PaintingCard from "../components/marketplace/PaintingCard";
