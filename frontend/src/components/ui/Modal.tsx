@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 import "./Modal.css";
-import { Interface } from "readline";
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  title?: string;
+  size?: string;
+  closable?: boolean;
+}
 
 const Modal = ({
   isOpen,
@@ -9,10 +17,10 @@ const Modal = ({
   title,
   size = "medium",
   closable = true,
-}) => {
+}: ModalProps) => {
   // Close modal on Escape key
   useEffect(() => {
-    const handleEscape = (event) => {
+    const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape" && closable) {
         onClose();
       }
