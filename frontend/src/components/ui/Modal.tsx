@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Modal.css";
+import { Interface } from "readline";
 
 const Modal = ({
   isOpen,

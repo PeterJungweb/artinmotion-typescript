@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../contexts/AuthContext.js";
-import Modal from "../ui/Modal.jsx";
+import Modal from "../ui/Modal.js";
 import "./AuthModal.css";
 
 interface RegisterModalProps {
