@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import "./MarketplaceHeader.css";
 
-export default function MarketplaceHeader() {
+export function MarketplaceHeader(): React.JSX.Element {
   const { t } = useTranslation();
 
   return (

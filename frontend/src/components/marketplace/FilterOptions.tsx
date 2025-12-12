@@ -2,7 +2,15 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import "./FilterOptions.css";
 
-export default function FilterOptions({ activeFilter, onFilterChange }) {
+interface FilterOptionsProps {
+  activeFilter: string;
+  onFilterChange: (filter: string) => void;
+}
+
+export function FilterOptions({
+  activeFilter,
+  onFilterChange,
+}: FilterOptionsProps) {
   const { t } = useTranslation();
 
   return (

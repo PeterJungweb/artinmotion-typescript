@@ -2,26 +2,25 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import MarketplaceHeader from "../components/marketplace/MarketplaceHeader";
-import FilterOptions from "../components/marketplace/FilterOptions";
-import PaintingCard from "../components/marketplace/PaintingCard";
+import { MarketplaceHeader } from "../components/marketplace/MarketplaceHeader";
+import { FilterOptions } from "../components/marketplace/FilterOptions";
+import { PaintingCard } from "../components/marketplace/PaintingCard";
 import { paintingsApi } from "../services/api";
 import { useRealtimeCartUpdates } from "../hooks/useRealtimeCartUpdates";
 import "./MarketplacePage.css";
+import { PaintingFromBackend } from "../types/apiTypes";
+import { isAxiosError } from "axios";
 
 export default function MarketplacePage() {
   const { t } = useTranslation();
-  const [filter, setFilter] = useState("all");
-  const [paintings, setPaintings] = useState([]);
+  const [filter, setFilter] = useState<string>("all");
+  const [paintings, setPaintings] = useState<PaintingFromBackend[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [showTooltip, setShowTooltip] = useState(false);
 
   // Real-time Cart Updates
-  const { isConnected, connectionError } = useRealtimeCartUpdates(
-    paintings,
-    setPaintings
-  );
+  const { isConnected, connectionError } = useRealtimeCartUpdates(setPaintings);
 
   // Fetching the data
   useEffect(() => {
@@ -32,9 +31,14 @@ export default function MarketplacePage() {
 
         const data = await paintingsApi.getAll();
         setPaintings(data.paintings || []);
-      } catch (err) {
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message || "Failed to load paintings");
+        }
+        if (isAxiosError(err)) {
+          console.error("Server Response: ", err.response?.data);
+        }
         console.error("❌ Failed to fetch paintings:", err);
-        setError(err.message || "Failed to load paintings");
       } finally {
         setLoading(false);
       }

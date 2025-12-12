@@ -1,24 +1,21 @@
 import React, { useState } from "react";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../hooks/useCart.js";
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../../utils/money.js";
+import type { PaintingFromBackend } from "../../types/apiTypes.js";
 import "./PaintingCard.css";
 
-export default function PaintingCard({ painting }) {
+interface PaintingCardProps {
+  painting: PaintingFromBackend;
+}
+
+export function PaintingCard({ painting }: PaintingCardProps) {
   const { t } = useTranslation();
   const { addToCart } = useCart();
   const [showDetails, setShowDetails] = useState(false);
 
   const handleAddToCart = () => {
-    const cartItem = {
-      id: painting.id,
-      title: painting.title,
-      price: painting.price,
-      quantity: 1,
-      image: painting.image_url || "/images/placeholder-image.jpg",
-      available: painting.is_available,
-    };
-    addToCart(cartItem);
+    addToCart(painting);
   };
 
   const toggleDetails = () => {
@@ -90,10 +87,6 @@ export default function PaintingCard({ painting }) {
               <li>
                 {t("marketplace.painting.medium")}:{" "}
                 {painting.medium || t("marketplace.painting.unknownMedium")}
-              </li>
-              <li>
-                {t("marketplace.painting.year")}:{" "}
-                {new Date(painting.completion_date).getFullYear() || "2024"}
               </li>
               <li>
                 {t("marketplace.painting.category")}: {painting.category}
