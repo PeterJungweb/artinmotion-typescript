@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./MiddleSection.css";
 
+interface MiddleSectionItem {
+  text: string;
+}
+
 export function MiddleSection(): React.JSX.Element {
   const { t } = useTranslation();
   const ref = useRef(null);
@@ -19,9 +23,9 @@ export function MiddleSection(): React.JSX.Element {
     return () => obs.disconnect();
   }, []);
 
-  const items: Array<{ text: string }> = t("middleSection.items", {
+  const items = t("middleSection.items", {
     returnObjects: true,
-  });
+  }) as MiddleSectionItem[];
 
   return (
     <section
@@ -30,7 +34,7 @@ export function MiddleSection(): React.JSX.Element {
       id="gallery"
     >
       <div className="container">
-        {items.map((it, idx) => (
+        {items.map((it: { text: string }, idx: number) => (
           <div className="item" key={idx}>
             <img
               src="/images/placeholder-image.jpg"

@@ -2,14 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TestimonialsSection.css";
 
-export default function TestimonialsSection() {
+export function TestimonialsSection() {
   const { t } = useTranslation();
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+
+  interface TestimonialItems {
+    text: string;
+    stars: string;
+  }
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
+      ([entry]: IntersectionObserverEntry[]) =>
+        setVisible(entry.isIntersecting),
       { threshold: 0.3 }
     );
     if (ref.current) obs.observe(ref.current);
@@ -18,7 +24,7 @@ export default function TestimonialsSection() {
 
   const testimonials = t("testimonialsSection.testimonials", {
     returnObjects: true,
-  });
+  }) as TestimonialItems[];
 
   return (
     <section
