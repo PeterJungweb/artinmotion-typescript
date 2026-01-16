@@ -1,9 +1,10 @@
-import React from "react";
+
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+
 import "./EmptyCart.css";
 
-export default function EmptyCart() {
+export function EmptyCart() {
   const { t } = useTranslation();
 
   return (
