@@ -1,4 +1,4 @@
-//import { useTranslation } from "react-i18next";
+
 import { useCart } from "../../hooks/useCart";
 import "./CartItem.css";
 
@@ -9,7 +9,7 @@ interface CartItemProps {
 }
 
 export function CartItem({ item }: CartItemProps) {
-  // const { t } = useTranslation();
+
   const { removeFromCart } = useCart();
 
   return (

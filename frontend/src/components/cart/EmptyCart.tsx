@@ -16,4 +16,4 @@ export function EmptyCart() {
       </Link>
     </div>
   );
-}
+} 

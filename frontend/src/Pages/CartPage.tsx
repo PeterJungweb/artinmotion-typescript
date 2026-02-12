@@ -9,7 +9,7 @@ import {EmptyCart} from "../components/cart/EmptyCart";
 import { useCart } from "../hooks/useCart";
 import "./CartPage.css";
 
-export default function CartPage() {
+export function CartPage() {
   const { t } = useTranslation();
   const { cartItems } = useCart();
 
