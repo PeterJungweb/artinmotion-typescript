@@ -1,9 +1,14 @@
-import React from "react";
 //import { useTranslation } from "react-i18next";
 import { useCart } from "../../hooks/useCart";
 import "./CartItem.css";
 
-export default function CartItem({ item }) {
+import type { CartItem } from "../../types/cartTypes";
+
+interface CartItemProps {
+  item: CartItem;
+}
+
+export function CartItem({ item }: CartItemProps) {
   // const { t } = useTranslation();
   const { removeFromCart } = useCart();
 

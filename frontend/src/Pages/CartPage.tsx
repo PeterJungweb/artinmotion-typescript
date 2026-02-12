@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
-import CartItem from "../components/cart/CartItem";
-import CartSummary from "../components/cart/CartSummary";
-import EmptyCart from "../components/cart/EmptyCart";
+import {CartItem} from "../components/cart/CartItem";
+import {CartSummary} from "../components/cart/CartSummary";
+import {EmptyCart} from "../components/cart/EmptyCart";
 import { useCart } from "../hooks/useCart";
 import "./CartPage.css";
 

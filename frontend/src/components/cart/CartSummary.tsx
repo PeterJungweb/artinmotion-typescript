@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import "./CartSummary.css";
 
-export default function CartSummary() {
+export function CartSummary() {
   const { t } = useTranslation();
   const { cartTotals } = useCart();
   const { subtotal, tax, shipping, total } = cartTotals;
