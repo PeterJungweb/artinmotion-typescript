@@ -125,4 +125,12 @@ export const ordersApi = {
   },
 };
 
+// Payments API
+export const paymentsApi = {
+  async createPaymentIntent(amount: number){
+    const response = await api.post('payments/create-payment-intent', {amount});
+    return response.data;
+  }
+}
+
 export default api;
