@@ -11,6 +11,7 @@ import type { Request, Response } from "express";
 import paintingsRoutes from "./routes/paintings.js";
 import cartRoutes from "./routes/cart.js";
 import authRoutes from "./routes/auth.js";
+import paymentsRoutes from "./routes/payments.js";
 
 // import { timeStamp } from "console"; // unused
 //import ordersRoutes from './src/routes/orders.js';
@@ -105,6 +106,7 @@ app.use(express.json());
 app.use("/api/paintings", paintingsRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/payments", paymentsRoutes);
 //app.use("/api/orders", ordersRoutes);
 
 // Health check with WS info
@@ -122,4 +124,5 @@ server.listen(PORT, () => {
   console.log(`📡 API available at http://localhost:${PORT}/api`);
   console.log(`🎨 Paintings: http://localhost:${PORT}/api/paintings`);
   console.log(`🛒 Cart: http://localhost:${PORT}/api/cart/calculate`);
+  console.log(`💸 Payments: https//localhost:${PORT}/api/payments`);
 });
