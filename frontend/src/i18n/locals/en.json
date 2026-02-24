@@ -188,6 +188,12 @@
     "checkout": "Checkout",
     "continueShopping": "Continue Shopping",
     "remove": "Remove",
-    "tax": "VAT (20%)"
+    "tax": "VAT (20%)",
+    "payment": {
+      "processing": "Processing...",
+      "payButton": "Pay €{{amount}}",
+      "emailPlaceholder": "Email",
+      "fullNamePlaceholder": "Full Name"
+    }
   }
 }

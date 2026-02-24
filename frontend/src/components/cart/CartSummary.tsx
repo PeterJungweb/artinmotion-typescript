@@ -27,7 +27,9 @@ export function CartSummary() {
         <span>{t("cart.total")}</span>
         <span>€{total.toFixed(2)}</span>
       </div>
-      <button className="checkout-button">{t("cart.checkout")}</button>
+      <Link to="/checkout" className="checkout-page">
+        {t("cart.checkout")}
+      </Link>
       <Link to="/marketplace" className="continue-shopping">
         {t("cart.continueShopping")}
       </Link>

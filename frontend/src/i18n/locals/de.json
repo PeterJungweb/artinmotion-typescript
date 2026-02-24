@@ -189,6 +189,12 @@
     "checkout": "Zur Kasse",
     "continueShopping": "Weiter Einkaufen",
     "remove": "Entfernen",
-    "tax": "Mehrwertsteuer (20%)"
+    "tax": "Mehrwertsteuer (20%)",
+    "payment": {
+      "processing": "Verarbeitung läuft...",
+      "payButton": "Bezahlen €{{amount}}",
+      "emailPlaceholder": "E-Mail",
+      "fullNamePlaceholder": "Vollständiger Name"
+    }
   }
 }
