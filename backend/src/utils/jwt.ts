@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import type { JwtPayload } from "jsonwebtoken";
 
 const JWT_SECRET: jwt.Secret = process.env.JWT_SECRET ?? "";
@@ -20,7 +20,7 @@ export const generateToken = (userId: string, email: string): string => {
       email,
     } as Record<string, unknown>,
     JWT_SECRET,
-    { expiresIn: JWT_EXPIRES_IN }
+    { expiresIn: JWT_EXPIRES_IN },
   );
 };
 

@@ -9,12 +9,13 @@ import crypto from "crypto";
 import type { Request, Response } from "express";
 import type { UserRow, RegisterBody } from "../types/authTypes.js";
 import type { SupabaseResponse } from "../types/supabaseResponseType.js";
+import { execFile } from "child_process";
 
 type ExtendedRequest = Request & { user?: UserRow };
 
 export const register = async (
   req: Request<{}, {}, RegisterBody>,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const { email, password, fullName, phone } = req.body;
@@ -34,15 +35,16 @@ export const register = async (
     }
 
     // Check if user already exists
-    const { data: existingUser, error: findErr } = (await supabase
+    const { data: existingUser } = (await supabase
       .from("users")
       .select("id")
       .eq("email", email.toLowerCase())
-      .single()) as SupabaseResponse<UserRow>;
+      .maybeSingle()) as SupabaseResponse<UserRow>;
 
-    if (findErr) {
-      console.error("DB lookup error: ", findErr);
-      return res.status(500).json({ error: "Database Error" });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "User already exists with this email" });
     }
 
     if (existingUser) {
@@ -102,7 +104,7 @@ export const register = async (
 
 export const login = async (
   req: Request<{}, {}, { email?: string; password?: string }>,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     const { email, password } = req.body;
@@ -125,7 +127,7 @@ export const login = async (
     // Verify password
     const isValidPassword = await comparePassword(
       password,
-      user.password_hash ?? ""
+      user.password_hash ?? "",
     );
     if (!isValidPassword) {
       return res.status(401).json({ error: "Invalid email or password" });
@@ -158,7 +160,7 @@ export const login = async (
 
 export const logout = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   // With JWT, logout is handled client-side by removing the token
   res.json({
@@ -169,11 +171,11 @@ export const logout = async (
 
 export const getProfile = async (
   req: ExtendedRequest,
-  res: Response
+  res: Response,
 ): Promise<Response | void> => {
   try {
     if (!req.user) {
-      return res.status(401).json({ error: "Not Authanticated" });
+      return res.status(401).json({ error: "Not Authenticated" });
     }
 
     return res.json({

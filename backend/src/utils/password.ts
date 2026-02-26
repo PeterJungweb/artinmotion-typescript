@@ -7,13 +7,13 @@ export const hashPassword = async (password: string): Promise<string> => {
 
 export const comparePassword = async (
   password: string,
-  hashPassword: string
+  hashPassword: string,
 ): Promise<boolean> => {
   return await bcrypt.compare(password, hashPassword);
 };
 
 export const validatePassword = (
-  password: string
+  password: string,
 ): {
   isValid: boolean;
   errors: string[];
@@ -36,8 +36,8 @@ export const validatePassword = (
     if (!/[a-z]/.test(password))
       errors.push("Must contain an lowercase letter");
     if (!/\d/.test(password)) errors.push("Must contain a number");
-    if (!/[!@#$%^&*]/.test(password))
-      errors.push("Must conatain one special char");
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password))
+      errors.push("Must contain one special char");
   }
 
   return {

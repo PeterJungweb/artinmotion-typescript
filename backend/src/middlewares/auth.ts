@@ -10,7 +10,7 @@ type ExtendedRequest = Request & { user?: UserRow };
 export const authenticateToken = async (
   req: ExtendedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const authHeader = String(req.headers.authorization ?? "");
@@ -37,7 +37,7 @@ export const authenticateToken = async (
       .from("users")
       .select("id, email, full_name, email_verified")
       .eq("id", userId)
-      .single()) as SupabaseResponse<UserRow>;
+      .maybeSingle()) as SupabaseResponse<UserRow>;
 
     if (error || !user) {
       return res.status(401).json({ error: "User not found" });
@@ -58,7 +58,7 @@ export const authenticateToken = async (
 export const optionalAuth = async (
   req: ExtendedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const authHeader = String(req.headers.authorization ?? "");
