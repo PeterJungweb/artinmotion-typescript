@@ -194,6 +194,22 @@
       "payButton": "Pay €{{amount}}",
       "emailPlaceholder": "Email",
       "fullNamePlaceholder": "Full Name"
+    },
+    "checkoutPage": {
+      "title": "Checkout",
+      "loading": "Loading checkout...",
+      "error": "Error loading payment form"
+    },
+    "success": {
+      "title": "Payment Successful!",
+      "message": "Thank you for your purchase!",
+      "description": "Your order has been confirmed and will be processed shortly.",
+      "whatsNext": "What's Next?",
+      "emailConfirmation": "You should receive an email confirmation soon",
+      "preparation": "Your artwork will be prepared for shipping",
+      "notification": "We'll notify you when it's on the way",
+      "continueShopping": "Continue Shopping",
+      "backToHome": "Back to Home"
     }
   }
 }

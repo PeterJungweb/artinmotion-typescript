@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { CartSummary } from "../components/cart/CartSummary";
 import stripePromise from "../config/stripe";
-import "./CheckoutPage.css";
 import { PaymentForm } from "../components/checkout/PaymentForm";
 import { useCart } from "../hooks/useCart";
 import { paymentsApi } from "../services/api";
+import { useTranslation } from "react-i18next";
 
 import "./CheckoutPage.css";
 
 export function CheckoutPage() {
+  const { t } = useTranslation();
   const { cartTotals } = useCart();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,18 +37,18 @@ export function CheckoutPage() {
   }, [cartTotals.total]);
 
   if (loading) {
-    return <div>Übersetzung füs lade...</div>;
+    return <div>{t("cart.checkoutPage.loading")}</div>;
   }
 
   if (!clientSecret) {
-    return <div>Übersetzung error loading payment form</div>;
+    return <div>{t("cart.checkoutPage.error")}</div>;
   }
 
   return (
     <div className="checkout-page">
       <div className="checkout-container">
         <div className="checkout-left">
-          <h1>Checkout</h1>
+          <h1>{t("cart.checkoutPage.title")}</h1>
           <Elements stripe={stripePromise} options={{ clientSecret }}>
             <PaymentForm clientSecret={clientSecret} />
           </Elements>

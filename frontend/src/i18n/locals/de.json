@@ -195,6 +195,22 @@
       "payButton": "Bezahlen €{{amount}}",
       "emailPlaceholder": "E-Mail",
       "fullNamePlaceholder": "Vollständiger Name"
+    },
+    "checkoutPage": {
+      "title": "Zur Kasse",
+      "loading": "Kasse wird geladen...",
+      "error": "Fehler beim Laden des Zahlungsformulars"
+    },
+    "success": {
+      "title": "Zahlung Erfolgreich!",
+      "message": "Vielen Dank für Ihren Kauf!",
+      "description": "Ihre Bestellung wurde bestätigt und wird in Kürze bearbeitet.",
+      "whatsNext": "Wie geht es weiter?",
+      "emailConfirmation": "Sie sollten bald eine E-Mail-Bestätigung erhalten",
+      "preparation": "Ihr Kunstwerk wird für den Versand vorbereitet",
+      "notification": "Wir benachrichtigen Sie, wenn es unterwegs ist",
+      "continueShopping": "Weiter Einkaufen",
+      "backToHome": "Zurück zur Startseite"
     }
   }
 }
