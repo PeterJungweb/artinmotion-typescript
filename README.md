@@ -1,3 +1,7 @@
+<img width="1931" height="628" alt="Screenshot-artinmotion" src="https://github.com/user-attachments/assets/ec121125-457a-42ec-b4f1-142362654544" />
+
+
+
 # ArtInMotion
 
 ArtInMotion is a web platform for selling unique artwork.  
