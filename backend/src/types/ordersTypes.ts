@@ -40,7 +40,7 @@ export interface OrderRow {
   stripe_payment_intent_id: string | null;
   order_number: string | null;
 
-  notes: string;
+  notes: string | null;
   created_at: string;
   updated_at: string;
 }

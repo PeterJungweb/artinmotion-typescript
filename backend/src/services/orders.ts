@@ -5,7 +5,7 @@ import type {
   OrderItemRow,
   CreateOrderParams,
   OrderWithItems,
-} from "../types/orderTypes.js";
+} from "../types/ordersTypes.js";
 
 export class OrdersService {
   static async createOrderFromCart(
@@ -50,7 +50,7 @@ export class OrdersService {
       throw new Error(`Failed to fetch cart: ${cartError.message}`);
     }
 
-    if (!cartItems || cartItems.length > 0) {
+    if (!cartItems || cartItems.length === 0) {
       throw new Error("Cart is empty - cannot create order");
     }
 
@@ -84,7 +84,7 @@ export class OrdersService {
         customer_name: customerInfo.name,
         customer_phone: customerInfo.phone || null,
         shipping_address: shippingAddress,
-        billing_address: billingAddress,
+        billing_address: billingAddress || null,
         subtotal: totals.subtotal,
         tax: totals.tax,
         shipping_cost: totals.shipping,
@@ -99,7 +99,7 @@ export class OrdersService {
       .select()
       .single()) as SupabaseResponse<OrderRow>;
 
-    if (orderError) {
+    if (orderError || !newOrder) {
       throw new Error(`Failed to create Order: ${orderError?.message}`);
     }
 
@@ -202,6 +202,10 @@ export class OrdersService {
         throw new Error("Order not found");
       }
       throw new Error(`Failed to fetch order: ${error.message}`);
+    }
+
+    if (!order) {
+      throw new Error("Order not found");
     }
 
     return order;
